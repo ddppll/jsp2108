@@ -3,7 +3,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>jsp2108(홈 화면)</title>
+	<title>jsp2108(홈 화면) - git 프로젝트 수정(211109_10:18)</title>
 	<%@ include file="include/bs4.jsp" %>
 	<style>
   .fakeimg {
