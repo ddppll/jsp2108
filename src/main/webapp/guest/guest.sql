@@ -17,3 +17,5 @@ insert into guest values (default,'관리자', 'abcd123@naver.com','blog.daum.ne
 insert into guest values (default,'아이유', 'iuiu1234@hanmail.net','',default,'192.168.0.10','잠시 방문하고 갑니다');
 
 select * from guest;
+
+select count(*) from guest;

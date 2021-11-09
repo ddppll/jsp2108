@@ -21,6 +21,9 @@ public class GInputOk extends HttpServlet{
 		String homepage = request.getParameter("homepage") == null? "" : request.getParameter("homepage");
 		String content = request.getParameter("content") == null? "" : request.getParameter("content");
 		
+		name = name.replace("<", "&lt;");
+		name = name.replace(">", "&gt;");
+		
 		GuestVO vo = new GuestVO();
 		
 		vo.setName(name);

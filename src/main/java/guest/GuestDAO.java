@@ -100,5 +100,23 @@ public class GuestDAO {
 		}
 		return res;
 	}
+
+	//방문소감 삭제처리
+	public boolean gDelete(int idx) {
+		boolean res = false;
+		try {
+			sql = "delete from guest where idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			pstmt.executeUpdate();
+			res = true;
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			pstmtClose(); //rs는 꺼내올때만 씀. executequery같은거
+		}
+		
+		return res;
+	}
 	
 }
