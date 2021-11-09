@@ -52,11 +52,13 @@ public class GuestDAO {
 	}
 	
 	// 전체 자료 검색
-	public List<GuestVO> gList(){
+	public List<GuestVO> gList( int startIndexNo,int pageSize){
 		List<GuestVO> vos = new ArrayList<GuestVO>();
 		try {
-			sql = "select * from guest order by idx desc";
+			sql = "select * from guest order by idx desc limit ?,?";
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startIndexNo);
+			pstmt.setInt(2, pageSize);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -117,6 +119,26 @@ public class GuestDAO {
 		}
 		
 		return res;
+	}
+	
+	//전체 레코드 건수
+	public int totRecCnt() {
+		int totRecCnt = 0;
+		try {
+			//sql = "select count(*) as cnt from guest"; cnt라는 이름으로 호출 가능
+			sql = "select count(*) from guest";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next())totRecCnt = rs.getInt(1); //만약 위에서 sql에 cnt로 불렀으면 괄호 안에 cnt 넣어줌
+			
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		
+		return totRecCnt;
 	}
 	
 }
