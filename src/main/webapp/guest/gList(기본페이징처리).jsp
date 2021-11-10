@@ -21,20 +21,13 @@
 	//현재 페이지 구하기
 	int pag = request.getParameter("pag") == null ? 1 : Integer.parseInt(request.getParameter("pag"));
 	
-	int pageSize = 2;				//1.한 페이지 분량
+	int pageSize = 5;				//1.한 페이지 분량
 	int totRecCnt = dao.totRecCnt();//2.총 레코드건수 구하기
 	int totPage = (totRecCnt % pageSize) == 0 ? totRecCnt/pageSize : (totRecCnt/pageSize) + 1; //3.총 페이지수 구하기
 	int startIndexNo = (pag - 1) * pageSize; //4.현재 페이지의 시작 index 번호
 	int curScrStarNo = totRecCnt - startIndexNo; //5. 현재 화면에 보이는 방문소감 시작번호
 	
 	/* 이곳까지 페이징 처리 변수 지정 끝 */
-	
-	/* 블록 페이징 처리(블록의 크기를 이용하여 '현재페이지의 블록위치(curBlock)','마지막 블럭의 위치(lastBlock)'를 구한다)*/
-	int blockSize = 3; 	// 한 블록의 크기를 3개의 page로 본다(사용자가 지정)
-	int curBlock = (pag -1) / blockSize; // 현재페이지의 블록위치
-	int lastBlock = (totPage % blockSize) == 0 ? (totPage / blockSize) -1 : (totPage % blockSize);
-		
-	/* 블록페이징 처리 끝*/
 	
 	
 	List<GuestVO> vos =  dao.gList(startIndexNo,pageSize);
@@ -44,7 +37,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>gList.jsp(방명록리스트 블록페이징 처리)</title>
+  <title>gList.jsp(방명록리스트 기본 페이징(이전/다음) 처리)</title>
   <%@ include file="../include/bs4.jsp" %>
   <script>
     function delCheck(idx) {
@@ -81,32 +74,22 @@
       <a href="<%=request.getContextPath()%>/guest/gInput.jsp" class="btn btn-secondary">글쓰기</a>
       </td>
       <td style="text-align:right;">
-      <!-- 블록 페이징처리 시작 -->
+      <!-- 페이징처리 시작 -->
 		<% if(pag != 1){ %>
 				<a href="gList.jsp?pag=1" class="btn btn-secondary btn-sm">◁◁</a>
 		<%} %>
-		
-		<% if(curBlock > 0){ %>
-				[<a href="gList.jsp?pag=<%=(curBlock-1)*blockSize+1%>">이전블록</a>]
+		<% if(pag > 1){ %>
+				<a href="gList.jsp?pag=<%=pag-1%>" class="btn btn-secondary btn-sm">◀</a>
 		<%} %>
-		
-		<% 
-			for(int i=(curBlock*blockSize)+1; i<=(curBlock*blockSize)+blockSize; i++){
-				if(i>totPage) break;
-				if(i == pag ) out.println("<a href='gList.jsp?pag="+i+"'><font color='red'><b>["+i+"]</b></font></a>");
-				else out.println("<a href='gList.jsp?pag="+i+"'>["+i+"]</a>");
-			}
-		%>
-		
-		<% if(curBlock < lastBlock){ %>
-				[<a href="gList.jsp?pag=<%=(curBlock+1)*blockSize+1%>">다음블록</a>]
+		<%=pag %>Page / <%=totPage %> Pages
+		<% if(pag < totPage){ %>
+				<a href="gList.jsp?pag=<%=pag+1%>"class="btn btn-secondary btn-sm">▶</a>
 		<%} %>
-		
 		<% if(pag != totPage){ %>
 				<a href="gList.jsp?pag=<%=totPage %>" class="btn btn-secondary btn-sm">▷▷</a>
 		<%} %>
 		
-	<!-- 블록 페이징처리 끝 -->
+	<!-- 페이징처리 끝 -->
       </td>
     </tr>
   </table>
