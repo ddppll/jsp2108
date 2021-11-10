@@ -11,7 +11,7 @@
 	<title>fileRead.jsp</title>
 	<%@ include file="../include/bs4.jsp" %>
 </head>
-<body>
+<body> 
 <p><br/></p>
 <div class="container">
 	<h2>inputFile.txt 파일 내용보기</h2>

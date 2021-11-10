@@ -14,7 +14,7 @@
 	
 	String fileName = time + ".txt";
 	
-	PrintWriter writer = null;
+	PrintWriter writer = null; 
 %>
 <!DOCTYPE html>
 <html>

@@ -175,4 +175,4 @@ INSERT INTO orders VALUES (20, 2, 17, 22000, '2021-10-15');
 
 select * from customer;
 select * from orders;
-select * from books;
+select * from books; 

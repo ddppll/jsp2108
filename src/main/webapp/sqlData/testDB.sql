@@ -167,7 +167,7 @@ select name as '이름', gender as '성별', age as '나이', address as '주소
 
 
 -- '홍'씨성을 가진 직원을 출력하시오? 포함 : like + '%'
-select * from insarok where name like '홍%';
+select * from insarok where name like '홍%'; 
 
 -- 이름이 '동'으로 끝나는 사람을 출력?
 select * from insarok where name like '%동';

@@ -17,7 +17,7 @@
 		<p>
 			<input type="submit" value="저장하기" class="btn btn-secondary"/>
 		</p>
-	</form>
+	</form> 
 </div>
 <br/>
 </body>
