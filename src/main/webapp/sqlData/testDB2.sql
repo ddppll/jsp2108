@@ -176,3 +176,110 @@ INSERT INTO orders VALUES (20, 2, 17, 22000, '2021-10-15');
 select * from customer;
 select * from orders;
 select * from books; 
+
+delete from customer where custId=5; /* 5번 아이디 박세리는 책 산 적 없어서 참조 테이블인 order 테이블에 영향을 주고있지 않아서 삭제 가능 */
+delete from customer where custId=6; /* 6번은 책 산 적 있어서 영향을 order 테이블에 주고 있어서 삭제 불가 */
+
+delete from books where bookId=4; /* 이것도 위의 박세리와 같은 경우 */
+delete from books where bookId=5; /* 위의 6번과 같은 경우라 삭제 불가*/
+
+update books set bookId = 20 where bookId = 21; /* 참조테이블에 있기에 원본에서 수정하면 참조테이블도 반영됨 */
+
+-- customer 테이블의 전화번호가 null인 자료 출력
+select * from customer where phone is null;
+
+-- 고객별로 주문한 도서의 총수량과 총판매액 구하기. 이때 고객 아이디도 출력하기
+select custId, count(*) from orders group by custId;
+
+/* 도서 가격이 8천원 이상인 도서를 구매한 고객에 대하여 주문도서의 총수량 구하기. 
+단, 4권 이상 구매한 고객만 대상으로 한다(고객아이디 출력)*/
+select custId, count(*) 
+from orders 
+where salePrice>=8000 group by custId having count(*)>=4;
+
+/*----------------------- Join - 다중테이블 응용 -----------------------------*/
+/* 고객테이블과 주문테이블을 조건 없이 연결하여 출력해보기 */
+select * from customer, orders;
+select * from customer cc, orders oo;
+
+-- 제약조건없이 고객테이블과 주문테이블을 검색하되 고객아이디는 주문테이블에서 성명은 고객테이블에서 출력
+select oo.custId, cc.name from customer cc, orders oo;
+
+-- 고객명과 해당고객이 주문한 사항을 모두 출력시켜보시오 
+select * from customer, orders where customer.custId = orders.custId;
+select * from customer cc, orders oo where cc.custId = oo.custId;
+
+-- 고객과 해당 고객이 주문한 정보에 대한 자료를 출력하되 고객번호순으로 출력하기
+select * from customer cc, orders oo where cc.custId = oo.custId order by cc.custId;
+
+-- 고객명과 해당고객이 주문한 도서의 판매가격을 검색(출력 : 고객명, 도서실제판매가격)
+select name, salePrice from customer cc, orders oo where cc.custId = oo.custId;
+
+-- 고객명과 고객이 주문한 도서의 이름을 출력(3개 테이블 Join) - bookId도 함께 출력
+select cc.name, bb.bookName, bb.bookId from books bb, customer cc, orders oo 
+where oo.custId=cc.custId and oo.bookId=bb.bookId;
+
+-- 실제 판매가격이 2만원 이상인 도서를 주문한 고객명과 도서명과 도서판매정가 출력
+select cc.name, bb.bookName, bb.price from books bb, customer cc, orders oo 
+where oo.custId=cc.custId and oo.bookId=bb.bookId and oo.salePrice>=20000; 
+
+-- 박지성이 구매한 도서의 수(박지성의 고객번호는 1번으로 놓고 작성)
+select count(*) from orders oo, customer cc where oo.custId = cc.custId and name='박지성'; 
+
+-- 고객별로 주문한 모든 도서의 총 판매액을 구하고 고객명별로 정렬하려 출력(출력:고객명, 총판매액)
+select cc.name, sum(oo.salePrice) from customer cc, orders oo
+where cc.custId = oo.custId
+group by cc.name order by cc.name; /* 그룹별 정렬이니까 그룹바이 써야함 */
+
+select cc.name 고객명, format(sum(oo.salePrice),0) 총판매액, format(avg(oo.salePrice),1) 평균판매액 from customer cc, orders oo
+where cc.custId = oo.custId group by cc.name order by cc.name;
+
+/* 고객 모두에 대하여 책 주문 내역 출력(단, 책을 구매하지 않은 회원도 출력) - left join : 왼쪽이 주가 되는 경우에 사용*/
+/*leftjoin에서 조건은 where가 아닌 on 사용*/
+select cc.name, oo.bookId from customer cc left join orders oo on cc.custId = oo.custId;
+
+/* 책을 주문한 고객 내역 출력(단, 구매 정보는 모두 출력) - right join : 오른쪽 테이블 우선 */
+select cc.name, oo.bookId from customer cc right join orders oo on cc.custId = oo.custId;
+
+/* Outer Join : 도서를 구매하지 않은 고객을 포함하여 고객 이름과 주문 도서 판매 가격을 출력 */
+select cc.name, oo.salePrice from customer cc left outer join orders oo on cc.custId=oo.custId;
+
+
+/* ----------------------부속질의(Sub Query)------------------------*/
+-- 가장 비싼 도서의 이름과 정가를 출력
+select bookName, max(price) from books;
+select bookName, price from books where price=(select max(price) from books);
+
+-- 도서 구매한 적 있는 고객의 이름 출력
+select name from customer where custId in (select custId from orders);
+
+-- 출판사 '대한미디어' 출판사 책을 구매한 고객의 이름을 출력
+select name from customer 
+where custId in (select custId from orders where bookId in
+(select bookId from books where publisher='대한미디어'));
+
+-- 도서 구매하지 않은 고객 이름 출력
+select name from customer where custId not in (select custId from orders); /*이건 내가한거*/
+select distinct cc.name from customer cc, orders oo where cc.custId not in (select custId from orders);/*이건 강사님이 한거*/
+
+
+/* =====================테스트=========================*/
+-- 성이 ‘김’ 씨이고 이름이 ‘아’로 끝나는 고객의 ‘이름’과 ‘주소’를 출력하시오.
+select name, address from customer where name like '김%%아';
+select name, address from customer where name like '김_아';
+
+-- 4. 고객별로주문한도서의총수량과총판매액을구하시오. 이때'고객아이디'도 출력하시오.
+select cc.name, sum(oo.salePrice), count(*), cc.custId from customer cc, orders oo
+where cc.custId = oo.custId
+group by cc.name order by cc.name; 
+
+-- 6. 박지성이 구매한 도서의 이름, 가격, 정가와 판매가격(세일가격)의 차이를 출력하시오.
+select bb.bookName, bb.price, (bb.price-oo.salePrice) from customer cc, orders oo, books bb 
+where cc.custId = oo.custId and oo.bookId = bb.bookId and cc.name='박지성';
+
+-- 10. 고객별 평균 구매액을 구하시오.(출력 : 고객명, 평균구매액)
+select cc.name, format(avg(oo.salePrice),1) from customer cc, orders oo
+where cc.custId = oo.custId group by cc.name;
+
+-- 9. 도서의 가격(Books 테이블)과 판매가격(Orders 테이블)의 차이가 가장 많은 주문을 출력하시오.
+select max(bb.price-oo.salePrice) from books bb, orders oo where bb.bookId = oo.bookId;
