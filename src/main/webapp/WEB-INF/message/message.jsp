@@ -15,12 +15,16 @@
 		var msg = "<%=msg%>";
 		var url = "<%=url%>";
 		
-		if(msg == "userDeleteOk") msg = "정보가 삭제되었습니다.";
-		else if (msg == "userDeleteNo") msg = "정보가 삭제되지 않았습니다.";
-		else if (msg == "userInputOk") msg = "정보가 입력되었습니다.";
-		else if (msg == "userInputNo") msg = "정보가 입력되지 않았습니다.";
-		else if (msg == "userUpdateOk") msg = "정보가 수정되었습니다.";
-		else if (msg == "userUpdateNo") msg = "정보가 수정되지 않았습니다.";
+		if(msg == "memberDeleteOk") msg = "정보가 삭제되었습니다.";
+		else if (msg == "memberDeleteNo") msg = "정보가 삭제되지 않았습니다.";
+		else if (msg == "memberJoinOk") msg = "회원 가입되었습니다.";
+		else if (msg == "memberJoinNo") msg = "회원 가입에 실패했습니다.";
+		else if (msg == "memberLoginOk") msg = "로그인 되었습니다.";
+		else if (msg == "memberLoginNo") msg = "로그인에 실패했습니다.";
+		else if (msg == "memberLogoutOk") msg = "로그아웃 되었습니다.";
+		else if (msg == "memberLoginPwdNo") msg = "비밀번호를 확인하세요.";
+		else if (msg == "memberUpdateOk") msg = "회원 정보가 수정되었습니다.";
+		else if (msg == "memberUpdateNo") msg = "회원 정보가 수정되지 않았습니다.";
 		
 	
 		alert(msg);

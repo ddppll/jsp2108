@@ -46,7 +46,7 @@ public class PasswordOk2 extends HttpServlet{
 		long decPwd;
 		intPwd = Long.parseLong(strPwd);
 		decPwd = encPwd ^ key;
-		System.out.println("복호화 된 비밀번호 : " + decPwd); // 복호화되어서 기존 비밀번호와 비교한다
+		System.out.println("복호화 된 비밀번호 : " + decPwd); // DB에 저장된 암호가 복호화되어서 기존 비밀번호와 비교한다
 		System.out.println("==============================");
 		
 		// 복원된 비밀번호는 숫자로 된 비밀번호이기에 문자로 변경 후 2개씩 분리해서 다시 문자로 변환시켜 준다

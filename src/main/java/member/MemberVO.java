@@ -4,7 +4,7 @@ public class MemberVO {
 	private int idx;
 	private String mid;
 	private String pwd;
-	private String pwdKey;
+	private int pwdKey;
 	private String nickName;
 	private String name;
 	private String gender;
@@ -24,6 +24,7 @@ public class MemberVO {
 	private int visitCnt;
 	private String startDate;
 	private String lastDate;
+	private int todayCnt;
 	
 	public int getIdx() {
 		return idx;
@@ -43,10 +44,10 @@ public class MemberVO {
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
-	public String getPwdKey() {
+	public int getPwdKey() {
 		return pwdKey;
 	}
-	public void setPwdKey(String pwdKey) {
+	public void setPwdKey(int pwdKey) {
 		this.pwdKey = pwdKey;
 	}
 	public String getNickName() {
@@ -163,6 +164,12 @@ public class MemberVO {
 	public void setLastDate(String lastDate) {
 		this.lastDate = lastDate;
 	}
+	public int getTodayCnt() {
+		return todayCnt;
+	}
+	public void setTodayCnt(int todayCnt) {
+		this.todayCnt = todayCnt;
+	}
 	@Override
 	public String toString() {
 		return "MemberVO [idx=" + idx + ", mid=" + mid + ", pwd=" + pwd + ", pwdKey=" + pwdKey + ", nickName="
@@ -170,8 +177,7 @@ public class MemberVO {
 				+ ", address=" + address + ", email=" + email + ", homePage=" + homePage + ", job=" + job + ", hobby="
 				+ hobby + ", photo=" + photo + ", content=" + content + ", userInfor=" + userInfor + ", userDel="
 				+ userDel + ", level=" + level + ", point=" + point + ", visitCnt=" + visitCnt + ", startDate="
-				+ startDate + ", lastDate=" + lastDate + "]";
+				+ startDate + ", lastDate=" + lastDate + ", todayCnt=" + todayCnt + "]";
 	}
-	
 	
 }
