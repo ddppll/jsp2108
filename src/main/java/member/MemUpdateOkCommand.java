@@ -6,7 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class MemJoinOkCommand implements MemberInterface {
+public class MemUpdateOkCommand implements MemberInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -36,24 +36,7 @@ public class MemJoinOkCommand implements MemberInterface {
 		hobby = hobby.substring(0,hobby.lastIndexOf("/"));
 		String content = request.getParameter("content") == null ? "" : request.getParameter("content").trim();
 		
-		// 아이디와 닉네임 중복 체크를 저장 전에 한번 더 수행시켜주기
 		MemberDAO dao = new MemberDAO();
-		
-		name = dao.idCheck(mid);
-		if(!name.equals("")) { 
-			request.setAttribute("msg", "idCheckNo");
-			request.setAttribute("url", request.getContextPath()+"/memJoin.mem");
-			return;
-		}
-		
-		//닉네임 중복체크하기
-		name = dao.nickCheck(nickName);
-		if(!name.equals("")) { 
-			request.setAttribute("msg", "nickCheckNo");
-			request.setAttribute("url", request.getContextPath()+"/memJoin.mem");
-			return;
-		}
-		//DB에 저장될 각각의 필드의 길이 체크
 		
 		// 비밀번호 암호화 처리
 		long intPwd;
@@ -74,6 +57,7 @@ public class MemJoinOkCommand implements MemberInterface {
 		encPwd = intPwd ^ pwdValue;	// 원본 비번과 암호키값을 배타적OR시킨다(exclusive or)
 		strPwd = String.valueOf(encPwd);
 		
+		
 		//모든 체크 완료 후 정확한 회원 정보를 DB에 저장할 준비를 한다
 		MemberVO vo = new MemberVO();
 		vo.setMid(mid);
@@ -93,16 +77,13 @@ public class MemJoinOkCommand implements MemberInterface {
 		vo.setContent(content);
 		vo.setUserInfor(userInfor);
 		
-		int res = dao.setMemberJoinOk(vo);
+		int res = dao.setMemberUpdateOk(vo);
 		
-		if(res==1) { //정상적으로 회원가입 완료
-			request.setAttribute("msg", "memberJoinOk");
-			request.setAttribute("url", request.getContextPath()+"/memLogin.mem");
+		if(res==1) { //정상적으로 회원정보 수정 완료
+			request.setAttribute("msg", "memberUpdateOk");
 		} else {
-			request.setAttribute("msg", "memberJoinNo");
-			request.setAttribute("url", request.getContextPath()+"/memJoin.mem");
-		}
-		
+			request.setAttribute("msg", "memberUpdateNo");
+		}	
+		request.setAttribute("url", request.getContextPath()+"/memMain.mem");
 	}
-
 }

@@ -16,7 +16,7 @@
 		var url = "<%=url%>";
 		
 		if(msg == "memberDeleteOk") msg = "정보가 삭제되었습니다.";
-		else if (msg == "memberDeleteNo") msg = "정보가 삭제되지 않았습니다.";
+		//else if (msg == "memberDeleteNo") msg = "정보가 삭제되지 않았습니다.";
 		else if (msg == "memberJoinOk") msg = "회원 가입되었습니다.";
 		else if (msg == "memberJoinNo") msg = "회원 가입에 실패했습니다.";
 		else if (msg == "memberLoginOk") msg = "로그인 되었습니다.";

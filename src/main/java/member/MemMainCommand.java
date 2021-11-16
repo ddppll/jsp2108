@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import guest.GuestDAO;
+
 public class MemMainCommand implements MemberInterface {
 
 	@Override
@@ -21,6 +23,15 @@ public class MemMainCommand implements MemberInterface {
 	  else if(level == 3) strLevel = "우수회원";
 	  
 	  session.setAttribute("strLevel", strLevel);
+	  
+	  MemberDAO dao = new MemberDAO();
+	  
+	  //총 방문횟수와 오늘방문횟수 가져오기
+	  //MemberVO vo
+	  
+	  // 사용자가 방명록에 올린 글의 개수 담아오기
+	  //GuestDAO guestDAO = new GuestDAO();
+	  //GuestDAO.getWriteCnt();
 	}
 
 }
