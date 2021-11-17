@@ -71,3 +71,5 @@ insert into hashTable values (18,'43434343');
 insert into hashTable values (19,'54545454');
 
 select * from hashTable;
+
+select*from user;
