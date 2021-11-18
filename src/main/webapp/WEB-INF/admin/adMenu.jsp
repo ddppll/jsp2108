@@ -3,12 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>adMenu.jsp</title>
-	<frameset cols="120px, *">
-		<frame src="<%=request.getContextPath()%>/adLeft.ad" name="adLeft" frameboard="0"/>
-		<frame src="<%=request.getContextPath()%>/adContent.ad" name="adContent" frameboard="0"/>
-	</frameset>
+  <meta charset="UTF-8">
+  <title>adMenu.jsp</title>
+  <frameset cols="120px,*">
+  	<frame src="<%=request.getContextPath()%>/adLeft.ad" name="adLeft" frameborder="0"/>
+  	<frame src="<%=request.getContextPath()%>/adContent.ad" name="adContent" frameborder="0"/>
+  </frameset>
 </head>
 <body>
 </body>

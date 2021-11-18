@@ -18,15 +18,15 @@
 	<p>스크립틀릿을 이용할 경우?</p>
 <%
 	//한글처리한다
-	//String mid = request.getParameter("mid");
-	//String pwd = request.getParameter("pwd");
-	//String name = request.getParameter("name");
-	//String mbc = request.getParameter("mbc");
+	String mid = request.getParameter("mid");
+	String pwd = request.getParameter("pwd");
+	String name = request.getParameter("name");
+	String mbc = request.getParameter("mbc");
 %>
-	아이디 : <%//=mid %><br/>
-	비밀번호 : <%//=pwd %><br/>
-	이름 : <%//=name %><br/>
-	mbc : <%//=mbc %><br/>
+	아이디 : <%=mid %><br/>
+	비밀번호 : <%=pwd %><br/>
+	이름 : <%=name %><br/>
+	mbc : <%=mbc %><br/>
 	<hr/>
 	<p>EL을 사용한 값을 전송받을 때는 $ {param.xxx} 사용(이 경우엔 request.getparameter로 안 받아도 됨)</p>
 	아이디 : ${param.mid}<br/>
@@ -76,6 +76,7 @@
 	atom4[0] ne atom4[1] : ${atom4[0] ne atom4[1]}<br/><br/>
 		
 	hobby : ${param.hobby}<br/>
+	
 	<!-- 체크박스의 경우 JSTL을 사용하여 배열값을 변수에 저장 후 출력해야한다.
 	hobby[0] : $ {param.hobby [0]}
 	hobby[1] : $ {param.hobby [1]} 
@@ -121,6 +122,7 @@
 	var1 : ${var1}<br/>
 	var2 : ${var2}<br/>
 	var3 : ${var3}<br/><br/>
+	
 	
 	연산자1(== "") : ${var1 == ""}<br/>
 	연산자2(== "") : ${var2 == ""}<br/>

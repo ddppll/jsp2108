@@ -224,15 +224,61 @@ public class MemberDAO {
 		return newMember;
 	}
 
-	// 회원 전체 리스트 가져오기
-	public ArrayList<MemberVO> getMemberList() {
-		ArrayList<MemberVO> vos = new ArrayList<MemberVO>();
+	// 회원 전체 리스트 가저오기
+		public ArrayList<MemberVO> getMemberList(int startIndexNo, int pageSize) {
+			ArrayList<MemberVO> vos = new ArrayList<MemberVO>();
+			try {
+				sql = "select * from member order by idx desc limit ?, ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, startIndexNo);
+				pstmt.setInt(2, pageSize);
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					vo = new MemberVO();
+					vo.setIdx(rs.getInt("idx"));
+					vo.setMid(rs.getString("mid"));
+					vo.setPwd(rs.getString("pwd"));
+					vo.setPwdKey(rs.getInt("pwdKey"));
+					vo.setNickName(rs.getString("nickName"));
+					vo.setName(rs.getString("name"));
+					vo.setGender(rs.getString("gender"));
+					vo.setBirthday(rs.getString("birthday"));
+					vo.setTel(rs.getString("tel"));
+					vo.setAddress(rs.getString("address"));
+					vo.setEmail(rs.getString("email"));
+					vo.setHomePage(rs.getString("homePage"));
+					vo.setJob(rs.getString("job"));
+					vo.setHobby(rs.getString("hobby"));
+					vo.setPhoto(rs.getString("photo"));
+					vo.setContent(rs.getString("content"));
+					vo.setUserInfor(rs.getString("userInfor"));
+					vo.setUserDel(rs.getString("userDel"));
+					vo.setPoint(rs.getInt("point"));
+					vo.setLevel(rs.getInt("level"));
+					vo.setVisitCnt(rs.getInt("visitCnt"));
+					vo.setLastDate(rs.getString("lastDate"));
+					vo.setStartDate(rs.getString("startDate"));
+					vo.setTodayCnt(rs.getInt("todayCnt"));
+					
+					vos.add(vo);
+				}
+			} catch (SQLException e) {
+				System.out.println("SQL 오류 : " + e.getMessage());
+			} finally {
+				getConn.rsClose();
+			}
+			return vos;
+		}
+
+	// 개별 정보 상세보기 처리
+	public MemberVO getMemberInfor(int idx) {
+		vo = new MemberVO();
 		try {
-			sql="select * from member order by idx desc";
+			sql="select*from member where idx = ?";
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
 			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				vo = new MemberVO();
+			if(rs.next()) {
 				vo.setIdx(rs.getInt("idx"));
 				vo.setMid(rs.getString("mid"));
 				vo.setPwd(rs.getString("pwd"));
@@ -258,13 +304,30 @@ public class MemberDAO {
 				vo.setStartDate(rs.getString("startDate"));
 				vo.setTodayCnt(rs.getInt("todayCnt"));
 				
-				vos.add(vo);
 			}
 		} catch (SQLException e) {
 			System.out.println("SQL 오류 : " + e.getMessage());
 		} finally {
 			getConn.rsClose();
-		}
-		return vos;
+		}	
+		return vo;
 	}
+
+	// 페이징처리를 위한 총 회원수 구하기
+		public int totRecCnt() {
+			int totRecCnt = 0;
+			try {
+				sql = "select count(*) from member";
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				rs.next();
+				totRecCnt = rs.getInt(1);
+			} catch (SQLException e) {
+				System.out.println("SQL 오류 : " + e.getMessage());
+			} finally {
+				getConn.rsClose();
+			}
+			return totRecCnt;
+		}
+
 }
