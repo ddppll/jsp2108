@@ -13,7 +13,7 @@
 <div class="container">
 	<h2>작업상황</h2>
 	<hr/>
-	<p><a href="${ctp}/adMemberList.ad">신규 가입자 <font color="red"><b>${newMember}</b></font> 건</a></p> <!-- 준회원 있을 경우 인원 출력 -->
+	<p><a href="${ctp}/adMemberList.ad?level=1">신규 가입자 <font color="red"><b>${newMember}</b></font> 건</a></p> <!-- 준회원 있을 경우 인원 출력 -->
 	<hr/>
 	<p><a href="#">최근 게시글 <font color="red"><b>XX</b></font> 건</a></p><!-- 최근 게시글 5건 보기 -->
 	<hr/>

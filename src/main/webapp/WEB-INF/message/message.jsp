@@ -25,6 +25,8 @@
 		else if (msg == "memberLoginPwdNo") msg = "비밀번호를 확인하세요.";
 		else if (msg == "memberUpdateOk") msg = "회원 정보가 수정되었습니다.";
 		else if (msg == "memberUpdateNo") msg = "회원 정보가 수정되지 않았습니다.";
+		else if (msg == "memberLevelChangeOk") msg = "회원 등급이 변경되었습니다.";
+		else if (msg == "memberResetOk") msg = "회원 정보가 삭제되었습니다.";
 		
 	
 		alert(msg);
