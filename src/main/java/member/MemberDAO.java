@@ -159,6 +159,31 @@ public class MemberDAO {
 		}
 		
 	}
+	
+	// 로그인사용자의 접속정보 가져오기(총방문회수, 오늘 방문횟수)
+		public MemberVO getUserInfor(String mid) {
+			vo = new MemberVO();
+			try {
+				sql = "select * from member where mid = ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, mid);
+				rs = pstmt.executeQuery();
+				rs.next();
+				
+				vo.setVisitCnt(rs.getInt("visitCnt"));
+				vo.setTodayCnt(rs.getInt("todayCnt"));
+				vo.setPoint(rs.getInt("point"));
+				vo.setName(rs.getString("name"));
+				
+				vo.setEmail(rs.getString("email"));
+				vo.setHomePage(rs.getString("homePage"));
+			} catch (SQLException e) {
+				System.out.println("SQL 오류 : " + e.getMessage());
+			} finally {
+				getConn.rsClose();
+			}
+			return vo;
+		}
 
 	// 회원 정보 수정 처리
 	public int setMemberUpdateOk(MemberVO vo) {

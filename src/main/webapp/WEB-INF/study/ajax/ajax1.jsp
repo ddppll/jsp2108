@@ -43,7 +43,7 @@
 			});
 		}
 		
-		//ajax로 User 테이블에 등록하기
+		// aJax로 User등록시키기
 	    function inputCheck() {
 	    	var name = $("#name").val();
 	    	var age = $("#age").val();
@@ -66,10 +66,48 @@
 	    		success : function(data) {
 	    			if(data == "1") {
 	    				alert("등록 성공!");
+	    				location.reload();
 	    			}
 	    		}
 	    	});
 	    }
+		
+	  	 function listCheck() {
+	    	$.ajax({
+	    		type : "post",
+	    		url  : "${ctp}/userList",
+	    		success : function(data) {
+	    			location.reload();
+	    		}
+	    	});
+	    } 
+	  	 
+	  	 //자료삭제
+	  	 function delCheck(idx){
+	  		 var ans = confirm("자료를 삭제하시겠습니까?");
+	  		 //if(ans) location.href = "${ctp}/userDelete?idx="+idx;
+	  		 var query = {
+	  			 idx : idx
+	  		 }
+	  		 
+	  		 $.ajax({
+	  			 type : "get",
+	  			 url : "${ctp}/userDelete",
+	  			 data : query,
+	  			 success : function(res){
+	  				 if(res == "1"){
+	  					 alert("자료가 삭제되었습니다.");
+	  					 location.reload();
+	  				 }
+	  			 },
+	  			 error : function(res){
+	  				alert("삭제 오류");
+	  			 }
+	  		 });
+	  	 }
+	  	 
+	  	 //수정
+	  
 		
 	</script>
 	<style>
@@ -117,21 +155,27 @@
 	</form>
 	<hr/>
 	<!-- 출력창 -->
-	<h2>User 테이블 전체 리스트</h2>
-	<table class="table">
-		<tr>
-			<th>번호</th>
-			<th>이름</th>
-			<th>나이</th>
-		</tr>
-		<c:forEach var="vo" items="${vos}">
-			<tr>
-				<td>${vo.idx}</td>
-				<td>${vo.name}</td>
-				<td>${vo.age}</td>
-			</tr>
-		</c:forEach>
-	</table>
+	<h2>User 전체 리스트</h2>
+  <table class="table">
+    <tr>
+      <th>번호</th>
+      <th>성명</th>
+      <th>나이</th>
+      <th>처리</th>
+    </tr>
+    <c:forEach var="vo" items="${vos}">
+	    <tr>
+	      <td>${vo.idx}</td>
+	      <td>${vo.name}</td>
+	      <td>${vo.age}</td>
+	      <td>
+	      	<a href="${ctp}/userUpdate?idx=${vo.idx}" class="btn btn-secondary btn-sm">수정</a>
+	      	<a href="javascript:delCheck(${vo.idx})" class="btn btn-secondary btn-sm">삭제</a>
+	      </td>
+	    </tr>
+    </c:forEach>
+  </table>
+  <br/>
 </div>
 <br/>
 <%@ include file="/include/footer.jsp" %>

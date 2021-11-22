@@ -24,7 +24,7 @@
       </li>
 <% 	   if(level != 99 && level !=1){%>
       <li class="nav-item">
-        <a class="nav-link" href="#">게시판</a>
+        <a class="nav-link" href="<%=request.getContextPath()%>/boList.bo">게시판</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">자료실</a>
@@ -47,6 +47,7 @@
         <a class="nav-link btn btn-secondary dropdown-toggle btn-sm" data-toggle="dropdown" href="#">study2</a>
 		    <div class="dropdown-menu">
 		      <a class="dropdown-item" href="<%=request.getContextPath()%>/ajax1.st">AJax연습</a>
+		      <a class="dropdown-item" href="<%=request.getContextPath()%>/ajax2.st">AJax연습2</a>
 		    </div>
       </li> 
 <%	   }%>      

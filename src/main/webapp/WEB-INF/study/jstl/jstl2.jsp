@@ -64,7 +64,7 @@
 	</p>
 	<p>2.반복문 예시 - varStatus count/index<br/>
 	count는 반복 횟수, index는 var="no"와 같은 의미<br/>
-		<c:forEach var="no" begin="10" end="20" step="2" varStatus="st">
+		<c:forEach var="no" begin="0" end="10" step="1" varStatus="st">
 			${no}.안녕 : count = ${st.count} / index = ${st.index}<br/><%-- varStatus는 현재 상태를 담는다. var과 다름 --%>
 		</c:forEach>
 	</p>

@@ -2,6 +2,7 @@ package study.ajax;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,23 +10,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import study.mapping2.UserDAO;
-import study.mapping2.UserVO;
 
-@WebServlet("/userInput")
-public class UserInput extends HttpServlet {
+@WebServlet("/userDelete")
+public class UserDelete extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String name = request.getParameter("name")==null ? "" : request.getParameter("name");
-		int age = Integer.parseInt(request.getParameter("age"));
+		int idx = Integer.parseInt(request.getParameter("idx"));
 		
 		UserDAO dao = new UserDAO();
-		UserVO vo = new UserVO();
+		int res = dao.setUserDel(idx);
 		
-		vo.setName(name);
-		vo.setAge(age);
+//		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/study/ajax/ajax1.jsp");
+//		dispatcher.forward(request, response);
 		
-		dao.setUserInputOk(vo);
+		//response.sendRedirect(request.getContextPath()+ "/ajax1.st");
 		
-		response.getWriter().write("1");
+		response.getWriter().write(res+"");
 	}
 }
