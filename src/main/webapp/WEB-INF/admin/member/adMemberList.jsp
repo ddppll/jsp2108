@@ -126,15 +126,26 @@
     </c:forEach>
   </table>
   <br/>
-  
+  <!-- 페이징처리 시작 -->
+<c:if test="${totPage == 0}"><p style="text-align:center"><b>자료가 없습니다.</b></p></c:if>
+<c:if test="${totPage != 0}">
+	<div style="text-align:center">
+	  <c:if test="${pag != 1}"><a href="${ctp}/adMemberList.ad?pag=1&level=${level}&mid=${mid}">◁◁</a></c:if> &nbsp;&nbsp;
+	  <c:if test="${pag > 1}"><a href="${ctp}/adMemberList.ad?pag=${pag-1}&level=${level}&mid=${mid}">◀</a></c:if>
+	  &nbsp;&nbsp; ${pag}Page / ${totPage}pages &nbsp;&nbsp;
+	  <c:if test="${pag < totPage}"><a href="${ctp}/adMemberList.ad?pag=${pag+1}&level=${level}&mid=${mid}">▶</a></c:if> &nbsp;&nbsp;
+	  <c:if test="${pag != totPage}"><a href="${ctp}/adMemberList.ad?pag=${totPage}&level=${level}&mid=${mid}">▷▷</a></c:if>
+	</div>
+</c:if>
+<!-- 페이징처리 끝 -->
 <!-- 페이징처리 시작 -->
-<div style="text-align:center">
+<%-- <div style="text-align:center">
   <c:if test="${pag != 1}">[<a href="${ctp}/adMemberList.ad?pag=1&level=${level}&mid=${mid}">◁◁</a>]</c:if>
   <c:if test="${pag > 1}">[<a href="${ctp}/adMemberList.ad?pag=${pag-1}&level=${level}&mid=${mid}">◀</a>]</c:if>
   ${pag}Page / ${totPage}pages
   <c:if test="${pag < totPage}">[<a href="${ctp}/adMemberList.ad?pag=${pag+1}&level=${level}&mid=${mid}">▶</a>]</c:if>
   <c:if test="${pag != totPage}">[<a href="${ctp}/adMemberList.ad?pag=${totPage}&level=${level}&mid=${mid}">▷▷</a>]</c:if>
-</div>
+</div> --%>
 <!-- 페이징처리 끝 -->
 
 </div>

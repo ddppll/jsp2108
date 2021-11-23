@@ -7,6 +7,25 @@
 	<meta charset="UTF-8">
 	<title>boInput.jsp</title>
 	<%@ include file="/include/bs4.jsp" %>
+	<script>
+		function fCheck(){
+			var title = myform.title.value;
+			var content = myform.content.value;
+			
+			if(title.trim() == ""){
+				alert("제목을 입력하세요");
+				myform.title.focus();
+			}
+			else if(content.trim() == ""){
+				alert("글 내용을 입력하세요");
+				myform.content.focus();
+			}
+			else{
+				myform.submit();
+			}
+			
+		}
+	</script>
 </head>
 <body>
 <%@ include file="/include/header_home.jsp" %>
@@ -26,7 +45,7 @@
 			</tr>
 			<tr>
 				<th>제목</th>
-				<td><input type="text" name="title" placeholder="제목을 입력하세요" class="form-control"/></td>
+				<td><input type="text" name="title" placeholder="제목을 입력하세요" class="form-control" autofocus required /></td>
 			</tr>
 			<tr>
 				<th>이메일</th>
@@ -38,7 +57,7 @@
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td><textarea rows="6" name="content" class="form-control"></textarea></td>
+				<td><textarea rows="6" name="content" class="form-control" required ></textarea></td>
 			</tr>
 			<tr>
 				<td colspan="2" style="text-align : center">

@@ -10,8 +10,13 @@ public class BoardVO {
 	private String wDate;
 	private int readNum;
 	private String hostIp;
-	private int goods;
+	private int good;
 	private String mid;
+	
+	//날짜형식필드를 '문자'와 '숫자'로 저장시키기 위한 변수 선언
+	private String wCdate;
+	private int wNdate;
+	
 	public int getIdx() {
 		return idx;
 	}
@@ -66,11 +71,11 @@ public class BoardVO {
 	public void setHostIp(String hostIp) {
 		this.hostIp = hostIp;
 	}
-	public int getGoods() {
-		return goods;
+	public int getGood() {
+		return good;
 	}
-	public void setGoods(int goods) {
-		this.goods = goods;
+	public void setGood(int good) {
+		this.good = good;
 	}
 	public String getMid() {
 		return mid;
@@ -78,12 +83,27 @@ public class BoardVO {
 	public void setMid(String mid) {
 		this.mid = mid;
 	}
+	public String getwCdate() {
+		return wCdate;
+	}
+	public void setwCdate(String wCdate) {
+		this.wCdate = wCdate;
+	}
+	public int getwNdate() {
+		return wNdate;
+	}
+	public void setwNdate(int wNdate) {
+		this.wNdate = wNdate;
+	}
 	@Override
 	public String toString() {
 		return "BoardVO [idx=" + idx + ", nickName=" + nickName + ", title=" + title + ", email=" + email
 				+ ", homePage=" + homePage + ", content=" + content + ", wDate=" + wDate + ", readNum=" + readNum
-				+ ", hostIp=" + hostIp + ", goods=" + goods + ", mid=" + mid + "]";
+				+ ", hostIp=" + hostIp + ", good=" + good + ", mid=" + mid + ", wCdate=" + wCdate + ", wNdate=" + wNdate
+				+ "]";
 	}
+	
+	
 	
 	
 }

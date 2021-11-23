@@ -39,6 +39,26 @@ public class BoardController extends HttpServlet{
 			command.execute(request, response);
 			viewPage += "/boInput.jsp";
 		}
+		if(com.equals("/boInputOk")) {
+			command = new BoInputOkCommand();
+			command.execute(request, response);
+			viewPage = "/WEB-INF/message/message.jsp";
+		}
+		if(com.equals("/boContent")) {
+			command = new BoContentCommand();
+			command.execute(request, response);
+			viewPage += "/boContent.jsp";
+		}
+		if(com.equals("/boDelete")) {
+			command = new BoDeleteCommand();
+			command.execute(request, response);
+			viewPage = "/WEB-INF/message/message.jsp";
+		}
+		if(com.equals("/boGood")) {
+			command = new BoGoodCommand();
+			command.execute(request, response);
+			viewPage += "/boContent.jsp";
+		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
