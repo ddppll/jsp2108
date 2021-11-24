@@ -44,7 +44,7 @@
 					<c:set var="lastStr" value="${i}"/>
 				</c:if>
 			</c:forEach>
-			<li>마지막에 만나는 'o' 문자 위치값 :${lastStr}</li>
+			<li>마지막에 만나는 'o' 문자 위치값 :${lastStr}</li><!-- o를뽑아온걸계속누적하는개념.그래서반복문끝나고뽑으면마지막꺼만나옴 -->
 		</ul><br/>
 	7.문자열추출(substringBefore(변수명,) / substringAfter)
 		<ul>

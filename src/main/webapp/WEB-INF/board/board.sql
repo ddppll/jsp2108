@@ -18,3 +18,11 @@ create table board(
 select * from board order by idx desc;
 insert into board values (default, '관리자','게시판 서비스 시작','manager@naver.com','blog.daum.net/manager','이곳은 게시판입니다. 테스트 글 입력중입니다.',default, default,'218.236.203.155',default,'admin');
 drop table board;
+
+/* 이전글 - 현재글보다 작은 idx 중 내림차순으로 정렬해서 그 중 가장 큰거 한개 */
+select * from board where idx < 20 order by idx desc limit 1;
+/* 다음글 - 현재글보다 큰 idx 중 오름차순으로 정렬해서 그 중 제일 작은거 한개 가져오면 됨 */
+select * from board where idx > 20 limit 1;
+
+
+select * from board where idx = 20;

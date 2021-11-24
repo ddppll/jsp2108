@@ -16,6 +16,10 @@ public class BoContentCommand implements BoardInterface {
 		int pag = request.getParameter("pag") == null ? 1 : Integer.parseInt(request.getParameter("pag"));
 		int pageSize = request.getParameter("pageSize") == null ? 5 : Integer.parseInt(request.getParameter("pageSize"));
 		
+		// 검색폼에서 값이 넘어올 경우
+		String sw = request.getParameter("sw")==null ? "" : request.getParameter("sw");
+		request.setAttribute("sw", sw);
+		
 		BoardDAO dao = new BoardDAO();
 		
 		// 조회수 증가처리(조회수 중복방지)
@@ -35,11 +39,18 @@ public class BoContentCommand implements BoardInterface {
 		}
 		//System.out.println("3.contentIdx : " + contentIdx);
 		
-		BoardVO vo = dao.getBoardContent(idx);
+		BoardVO vo = dao.getBoardContent(idx);	// vo : 현재 글을 저장하고 있는 vo
 		
 		request.setAttribute("vo", vo);
 		request.setAttribute("pag", pag);
 		request.setAttribute("pageSize", pageSize);
+		
+		// '이전글(preVO)'/'다음글(nextVO)'처리하기 - sql문만 바뀌면 되고 처리는 같으니 하나의 메소드에서 처리한다
+		BoardVO preVO = dao.preNextSearch("pre", idx);		//이전글 처리
+		BoardVO nextVO = dao.preNextSearch("next", idx);	//다음글 처리
+		request.setAttribute("preVO", preVO);
+		request.setAttribute("nextVO", nextVO);
+		
 	}
 
 }
